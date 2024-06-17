@@ -35,7 +35,7 @@ def serve_layout():
                     dbc.Popover(
                         dbc.PopoverBody(
                             children=[
-                                "G|Flows, or Greek Flows, measures market risks that \
+                                "Ghost|Flows, or Greek Flows, measures market risks that \
                                 can affect option prices. ",
                                 html.Br(),
                                 html.Span(
@@ -54,7 +54,7 @@ def serve_layout():
             ),
             dbc.Row(
                 html.Div(
-                    html.H2("G|Flows"),
+                    html.H2("Ghost|Flows"),
                     className="mx-auto d-flex justify-content-center",
                 )
             ),
@@ -270,7 +270,7 @@ def serve_layout():
                             children=[
                                 "Delta measures how much an option's price changes due to \
                         a change in the underlying asset's price. \
-                        G|Flows measures the delta exposure for a 1% move in asset price, \
+                        Ghost|Flows measures the delta exposure for a 1% move in asset price, \
                         which shows how much an option's price will change from that asset \
                         move.\n\n\
                         Long (+) delta: long calls and short puts have positive delta that \
@@ -316,7 +316,7 @@ def serve_layout():
                         dbc.AccordionItem(
                             "Gamma measures how much an option's delta changes due to \
                         a change in the underlying asset's price.\
-                        G|Flows measures the gamma exposure for a 1% move in asset price, \
+                        Ghost|Flows measures the gamma exposure for a 1% move in asset price, \
                         which shows how much an option's delta will change from that asset move.\n\
                         \nLong (+) gamma: hedging goes against the market \
                         (buy the dip, sell rallies), \
@@ -338,7 +338,7 @@ def serve_layout():
                         dbc.AccordionItem(
                             "Vanna measures how much an option's delta changes due to a change in \
                         the underlying asset's implied volatility (IV). \
-                        G|Flows measures the vanna exposure for a 1% move in IV, \
+                        Ghost|Flows measures the vanna exposure for a 1% move in IV, \
                         which shows how much an option's delta will change from that IV move.\n\
                         \nLong (+) vanna: every 1% IV decrease will decrease delta (induces buying)\n\
                         Long (+) vanna: every 1% IV increase will increase delta (induces selling)\n\
@@ -356,7 +356,7 @@ def serve_layout():
                         ),
                         dbc.AccordionItem(
                             "Charm measures how much an option's delta changes due to time passing. \
-                        G|Flows measures the charm exposure for each day until an option expires, \
+                        Ghost|Flows measures the charm exposure for each day until an option expires, \
                         which shows how much an option's delta will change from 1 day passing.\n\
                         \nLong (+) charm: each day passing will increase delta \
                         for ITM calls and OTM puts (induces selling)\n\
@@ -405,7 +405,7 @@ def serve_layout():
                                 dbc.PopoverBody(
                                     html.Iframe(
                                         id="kofiframe",
-                                        src="https://ko-fi.com/aaguiar/?hidefeed=true&widget=true&embed=true&preview=true",
+                                        src="",
                                         style={
                                             "border": "none",
                                             "width": "100%",
@@ -420,7 +420,7 @@ def serve_layout():
                                 dbc.PopoverHeader(
                                     html.A(
                                         "View page",
-                                        href="https://ko-fi.com/aaguiar",
+                                        href="",
                                         target="_blank",
                                         id="kofi-link-color",
                                     ),
