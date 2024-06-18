@@ -618,8 +618,7 @@ def update_live_chart(value, stock, expiration, active_page, refresh, toggle_dar
     if not is_profile_or_volatility:
         split_title = textwrap.wrap(
             f"Total {name}: $"
-            + str("{:,.2f}".format(df[f"total_{name.lower()}"].sum() * scale))
-            + f" Positive Gex {totalcallgamma}  Negative Gex {totalputgamma} "
+            + str("{:,.2f}".format(df[f"total_{name.lower()}"].sum() * scale)) 
             + f" {description}, {today_ddt_string}",
             width=50,
         )
