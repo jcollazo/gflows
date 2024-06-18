@@ -423,6 +423,8 @@ def update_live_chart(value, stock, expiration, active_page, refresh, toggle_dar
         levels,
         totaldelta,
         totalgamma,
+        totalcallgamma,
+        totalputgamma,
         totalvanna,
         totalcharm,
         zerodelta,
@@ -617,6 +619,7 @@ def update_live_chart(value, stock, expiration, active_page, refresh, toggle_dar
         split_title = textwrap.wrap(
             f"Total {name}: $"
             + str("{:,.2f}".format(df[f"total_{name.lower()}"].sum() * scale))
+            + f" Positive Gex {totalcallgamma}  Negative Gex {totalputgamma} "
             + f" {description}, {today_ddt_string}",
             width=50,
         )

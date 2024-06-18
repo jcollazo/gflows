@@ -288,6 +288,7 @@ def calc_exposures(
         "ex_next": np.array([]),
         "ex_fri": np.array([]),
     }
+    
     totalvanna = {
         "all": np.array([]),
         "ex_next": np.array([]),
@@ -427,6 +428,8 @@ def calc_exposures(
     totaldelta["all"] = (call_delta_ex.sum(axis=1) + put_delta_ex.sum(axis=1)) / 10**9
     # gamma exposure
     totalgamma["all"] = (call_gamma_ex.sum(axis=1) - put_gamma_ex.sum(axis=1)) / 10**9
+    totalcallgamma = call_gamma_ex.sum(axis=1)
+    totalputgamma = call_gamma_ex.sum(axis=1)
     # vanna exposure
     totalvanna["all"] = (call_vanna_ex.sum(axis=1) - put_vanna_ex.sum(axis=1)) / 10**9
     # charm exposure
@@ -512,6 +515,8 @@ def calc_exposures(
         levels.ravel(),
         totaldelta,
         totalgamma,
+        totalcallgamma,
+        totalputgamma,
         totalvanna,
         totalcharm,
         zerodelta,
