@@ -423,8 +423,6 @@ def update_live_chart(value, stock, expiration, active_page, refresh, toggle_dar
         levels,
         totaldelta,
         totalgamma,
-        totalcallgamma,
-        totalputgamma,
         totalvanna,
         totalcharm,
         zerodelta,
