@@ -18,8 +18,9 @@ from datetime import timedelta
 from pytz import timezone
 from dotenv import load_dotenv
 from os import environ
-
+from sqlalchemy import MetaData, Table, create_engine
 load_dotenv()  # load environment variables from .env
+engine = create_engine("mysql+mysqlconnector://root:G4gdBEcff1FCd454HdE1a45DFad21cGF@monorail.proxy.rlwy.net:21583/railway")
 
 app = Dash(
     __name__,
@@ -84,6 +85,9 @@ def cache_data(ticker, expir):
 
 def sensor(select=None):
     # default: all tickers, json format
+    connection = engine.connect()
+    truncate_query = sqlalchemy.text("TRUNCATE TABLE 15min")
+    connection.execution_options(autocommit=True).execute(truncate_query)
     dwn_data(select, is_json=True)  # False for CSV
     cache.clear()
 

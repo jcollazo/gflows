@@ -2,6 +2,7 @@ import pandas as pd
 import exchange_calendars as xcals
 import numpy as np
 import orjson
+import requests
 import modules.stats as stats
 from yahooquery import Ticker
 from datetime import datetime, timedelta
@@ -12,12 +13,35 @@ from calendar import monthrange
 from cachetools import cached, TTLCache
 from pathlib import Path
 from os import getcwd
+from sqlalchemy import MetaData, Table, create_engine
+import time
 
+engine = create_engine("mysql+mysqlconnector://root:G4gdBEcff1FCd454HdE1a45DFad21cGF@monorail.proxy.rlwy.net:21583/railway")
 # Ignore warning for NaN values in dataframe
 simplefilter(action="ignore", category=RuntimeWarning)
 
 pd.options.display.float_format = "{:,.4f}".format
 
+def sendMessage(ticker):
+    url = "https://discord.com/api/webhooks/1197897097677131776/Txj18bLE6vbB48hYRv5JkUPcKOSzOnGthh8l0jId78lC864dw187k_o24QUIGzlqNaTK" #webhook url, from here: https://i.imgur.com/f9XnAew.png
+    
+   
+    content = "Data Processed"
+    #for all params, see https://discordapp.com/developers/docs/resources/webhook#execute-webhook
+    data = {
+        "content" : content
+    }
+    #wait for delta and high above 100 long
+
+    
+    result = requests.post(url, json = data)
+
+    try:
+        result.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        print(err)
+    else:
+        print("Payload delivered successfully, ticker {}.".format(ticker))
 
 @cached(cache=TTLCache(maxsize=16, ttl=60 * 60 * 4))  # in-memory cache for 4 hrs
 def is_third_friday(date, tz):
@@ -58,6 +82,37 @@ def is_parsable(date):
     except ValueError:
         return False
 
+def has_decimals(number):
+  """
+  Checks if a number has decimal places, considering scientific notation.
+
+  Args:
+    number: The number to be checked.
+
+  Returns:
+    True if the number has decimal places, False otherwise.
+  """
+  if isinstance(number, str):
+    try:
+      number = float(number)
+    except ValueError:
+      return False
+
+  # Check for scientific notation
+ 
+  # Check for decimal places
+  return abs(number) % 1 != 0
+
+def insertDates(tablename, ticker, x):
+
+    #df = pd.DataFrame(x)
+   
+    #df = df.join(pd.json_normalize(df.pop('strikes'))).explode('strike')
+    #df['ticker'] = ticker
+
+    x.to_sql(tablename, con=engine, if_exists='append', index=False) 
+    sendMessage(ticker)
+    return "Inserted"
 
 def format_data(data, today_ddt, tzinfo):
     keys_to_keep = ["option", "iv", "open_interest", "delta", "gamma"]
@@ -108,7 +163,7 @@ def format_data(data, today_ddt, tzinfo):
     data = data.sort_values(by=["expiration_date", "strike_price"]).reset_index(
         drop=True
     )
-
+    
     return data
 
 
@@ -577,7 +632,9 @@ def get_options_data_json(ticker, expir, tz):
         option_data = option_data[option_data["expiration_date"] == first_expiry]
     elif expir == "opex":
         option_data = option_data[option_data["expiration_date"] <= this_monthly_opex]
-
+    option_data['price'] = spot_price
+    option_data['insertedTimestamp']  = pd.Timestamp.now() 
+    insertDates('15min', ticker, option_data)
     return calc_exposures(
         option_data,
         ticker,
