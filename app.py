@@ -86,7 +86,7 @@ def cache_data(ticker, expir):
 def sensor(select=None):
     # default: all tickers, json format
     connection = engine.connect()
-    truncate_query = sqlalchemy.text("TRUNCATE TABLE 15min")
+    truncate_query = engine.text("TRUNCATE TABLE 15min")
     connection.execution_options(autocommit=True).execute(truncate_query)
     dwn_data(select, is_json=True)  # False for CSV
     cache.clear()
