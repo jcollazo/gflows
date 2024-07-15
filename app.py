@@ -20,7 +20,6 @@ from dotenv import load_dotenv
 from os import environ
 import sqlalchemy
 load_dotenv()  # load environment variables from .env
-#engine = create_engine("mysql+mysqlconnector://root:G4gdBEcff1FCd454HdE1a45DFad21cGF@monorail.proxy.rlwy.net:21583/railway")
 
 app = Dash(
     __name__,
@@ -59,7 +58,7 @@ def analyze_data(ticker, expir):
         ticker,
         expir,
         is_json=True,  # False for CSV
-        tz="America/New_York",
+        tz="America/Puerto_Rico",
     )
     return result if result else (None,) * 16
 
