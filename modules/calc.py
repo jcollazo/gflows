@@ -13,17 +13,19 @@ from calendar import monthrange
 from cachetools import cached, TTLCache
 from pathlib import Path
 from os import getcwd
+from dotenv import load_dotenv
+from os import environ
 from sqlalchemy import MetaData, Table, create_engine
 import time
-
-engine = create_engine("mysql+mysqlconnector://root:G4gdBEcff1FCd454HdE1a45DFad21cGF@monorail.proxy.rlwy.net:21583/railway")
+load_dotenv() 
+engine = create_engine(environ.get("MCONN"))
 # Ignore warning for NaN values in dataframe
 simplefilter(action="ignore", category=RuntimeWarning)
 
 pd.options.display.float_format = "{:,.4f}".format
 
 def sendMessage(ticker):
-    url = "https://discord.com/api/webhooks/1197897097677131776/Txj18bLE6vbB48hYRv5JkUPcKOSzOnGthh8l0jId78lC864dw187k_o24QUIGzlqNaTK" #webhook url, from here: https://i.imgur.com/f9XnAew.png
+    url = environ.get("DISCORD_WEBHOOK") #webhook url, from here: https://i.imgur.com/f9XnAew.png
     
    
     content = "Data Processed"

@@ -85,7 +85,7 @@ def cache_data(ticker, expir):
 
 def sensor(select=None):
     # default: all tickers, json format
-    engine = sqlalchemy.create_engine('mysql+mysqlconnector://root:G4gdBEcff1FCd454HdE1a45DFad21cGF@monorail.proxy.rlwy.net:21583/railway')
+    engine = sqlalchemy.create_engine(environ.get("MCONN"))
     connection = engine.connect()
     truncate_query = sqlalchemy.text("TRUNCATE TABLE 15min")
     connection.execution_options(autocommit=True).execute(truncate_query)
