@@ -53,7 +53,7 @@ def fulfill_req(ticker, is_json, session):
 def dwn_data(select, is_json):
     pool = ThreadPool()
     print(f"\ndownload start: {datetime.now()}\n")
-    tickers_pool = (environ.get("TICKERS") or "^SPX,^NDX,^RUT").strip().split(",")
+    tickers_pool = (environ.get("TICKERS1") or "^SPX,^NDX,^RUT").strip().split(",")
     if select:  # select tickers to download
         tickers_pool = [f"^{t}" if f"^{t}" in tickers_pool else t for t in select]
     tickers_format = [

@@ -634,8 +634,7 @@ def get_options_data_json(ticker, expir, tz):
         option_data = option_data[option_data["expiration_date"] <= this_monthly_opex]
     option_data['price'] = spot_price
     option_data['insertedTimestamp']  = pd.Timestamp.now() 
-    insertDates('15min', ticker, option_data)
-    return calc_exposures(
+    calc_exposures(
         option_data,
         ticker,
         expir,
@@ -645,6 +644,8 @@ def get_options_data_json(ticker, expir, tz):
         today_ddt,
         today_ddt_string,
     )
+    insertDates('15min', ticker, option_data)
+    return option_data
 
 
 def get_options_data_csv(ticker, expir, tz):
