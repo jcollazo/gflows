@@ -120,10 +120,10 @@ sched.add_job(
     combining.OrTrigger(
         [
             cron.CronTrigger.from_crontab(
-                "0,15,30,45 9-15 * * 0-4", timezone=timezone("America/New_York")
+                "0,15,30,45 9-15 * * 0-4", timezone=timezone("America/Puerto_Rico")
             ),
             cron.CronTrigger.from_crontab(
-                "0,15,30 16 * * 0-4", timezone=timezone("America/New_York")
+                "0,15,30 16 * * 0-4", timezone=timezone("America/Puerto_Rico")
             ),
         ]
     ),
@@ -136,7 +136,7 @@ sched.add_job(
                 day_of_week="0-4",
                 hour="9-15",
                 second="*/5",
-                timezone=timezone("America/New_York"),
+                timezone=timezone("America/Puerto_Rico"),
             ),
             cron.CronTrigger(
                 day_of_week="0-4",
