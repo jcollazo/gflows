@@ -117,7 +117,7 @@ def insertDates(tablename, ticker, x):
     return "Inserted"
 
 def format_data(data, today_ddt, tzinfo, ticker):
-    keys_to_keep = ["option", "iv", "open_interest", "delta", "gamma"]
+    keys_to_keep = ["option", "iv", "open_interest", "delta", "gamma","vanna","charm","volume"]
     data = pd.DataFrame([{k: d[k] for k in keys_to_keep if k in d} for d in data])
     data = pd.concat(
         [
@@ -126,8 +126,11 @@ def format_data(data, today_ddt, tzinfo, ticker):
                     "option": "calls",
                     "iv": "call_iv",
                     "open_interest": "call_open_int",
+                    "volume": "call_volume",
                     "delta": "call_delta",
                     "gamma": "call_gamma",
+                    "vanna": "call_vanna",
+                    "charm": "call_charm",
                 }
             )
             .iloc[0::2]
@@ -137,8 +140,11 @@ def format_data(data, today_ddt, tzinfo, ticker):
                     "option": "puts",
                     "iv": "put_iv",
                     "open_interest": "put_open_int",
+                    "volume": "put_volume",
                     "delta": "put_delta",
                     "gamma": "put_gamma",
+                    "vanna": "put_vanna",
+                    "charm": "put_charm",
                 }
             )
             .iloc[1::2]
