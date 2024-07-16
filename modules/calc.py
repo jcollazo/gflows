@@ -116,7 +116,7 @@ def insertDates(tablename, ticker, x):
     sendMessage(ticker)
     return "Inserted"
 
-def format_data(data, today_ddt, tzinfo):
+def format_data(data, today_ddt, tzinfo, ticker):
     keys_to_keep = ["option", "iv", "open_interest", "delta", "gamma"]
     data = pd.DataFrame([{k: d[k] for k in keys_to_keep if k in d} for d in data])
     data = pd.concat(
@@ -616,6 +616,7 @@ def get_options_data_json(ticker, expir, tz):
         data["data.options"][0],
         today_ddt,
         today_date.date_obj.tzinfo,
+        ticker
     )
 
     all_dates = option_data["expiration_date"].drop_duplicates()
