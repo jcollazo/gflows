@@ -69,7 +69,7 @@ def serve_layout():
                     children=[
                         dbc.Tab(
                             label=(
-                                f"{ticker_info[ticker]} ({format_ticker(ticker)})"
+                                f"({format_ticker(ticker)})"
                                 if isinstance(ticker_info[ticker], dict)
                                 else format_ticker(ticker)
                             ),
