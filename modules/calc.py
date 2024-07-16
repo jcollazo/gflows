@@ -146,10 +146,15 @@ def format_data(data, today_ddt, tzinfo):
         ],
         axis=1,
     )
+    data["ticker"] = ticker.upper()
     data["strike_price"] = (
         data["calls"].str.extract(r"\d[A-Z](\d+)\d\d\d").astype(float)
     )
     data["expiration_date"] = data["calls"].str.extract(r"[A-Z](\d+)")
+    #data["strikecheck"] = has_decimals(data["strike_price"])
+    data["TOScall"] ='.'+ data['ticker'].astype(str) + data['expiration_date'] + 'C' +  data["strike_price"].astype(str).replace('\.0', '', regex=True)
+    data["TOSput"] = '.'+data['ticker'].astype(str) + data['expiration_date'] + 'P' +  data["strike_price"].astype(str).replace('\.0', '', regex=True)
+    
     data["expiration_date"] = pd.to_datetime(
         data["expiration_date"], format="%y%m%d"
     ).dt.tz_localize(tzinfo) + timedelta(hours=16)
