@@ -11,7 +11,7 @@ def format_ticker(ticker):
 def serve_layout():
     tickers = (environ.get("TICKERS") or "^SPX,^NDX,^RUT").strip().split(",")
     ticker_info = Ticker(tickers).summary_detail
-    print(ticker_info)
+    #print(ticker_info)
     return dbc.Container(
         [
             dcc.Store(
