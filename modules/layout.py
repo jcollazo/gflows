@@ -10,7 +10,8 @@ def format_ticker(ticker):
 
 def serve_layout():
     tickers = (environ.get("TICKERS") or "^SPX,^NDX,^RUT").strip().split(",")
-    ticker_info = Ticker(tickers).quote_type
+    ticker_info = Ticker(tickers).summary_detail
+    print(ticker_info)
     return dbc.Container(
         [
             dcc.Store(
@@ -68,7 +69,7 @@ def serve_layout():
                     children=[
                         dbc.Tab(
                             label=(
-                                f"{ticker_info[ticker]['longName']} ({format_ticker(ticker)})"
+                                f"{ticker_info[ticker]} ({format_ticker(ticker)})"
                                 if isinstance(ticker_info[ticker], dict)
                                 else format_ticker(ticker)
                             ),
